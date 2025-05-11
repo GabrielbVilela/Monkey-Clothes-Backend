@@ -24,24 +24,15 @@ public class ClienteEntity {
     @OneToOne
     private UsuarioEntity usuario;
 
+
     public ClienteEntity() {}
+    public ClienteEntity(String nome, String cpf) { this.nome = nome; this.cpf = cpf; }
 
-    public ClienteEntity(String nome, String cpf) {
-        this.nome = nome;
-        this.cpf = cpf;
-    }
-
-    public void adicionarContato(ContatoEntity contato) {
-        this.contatos.add(contato);
-        contato.setCliente(this);
-    }
-
-    public void adicionarEndereco(EnderecoEntity endereco) {
-        this.enderecos.add(endereco);
-        endereco.setCliente(this);
-    }
-
+    public void adicionarContato(ContatoEntity contato) { this.contatos.add(contato); contato.setCliente(this);}
+    public void adicionarEndereco(EnderecoEntity endereco) { this.enderecos.add(endereco); endereco.setCliente(this);}
     public void adicionarUsuario(UsuarioEntity usuario) {
         this.usuario = usuario;
     }
+
+
 }
