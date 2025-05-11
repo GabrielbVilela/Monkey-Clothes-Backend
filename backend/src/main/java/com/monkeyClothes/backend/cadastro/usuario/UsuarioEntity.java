@@ -1,11 +1,7 @@
-package com.monkeyClothes.backend.cliente.usuario;
+package com.monkeyClothes.backend.cadastro.usuario;
 
-import com.monkeyClothes.backend.cliente.contato.ContatoEntity;
-import com.monkeyClothes.backend.cliente.endereco.EnderecoEntity;
-import com.monkeyClothes.backend.cliente.model.ClienteEntity;
+import com.monkeyClothes.backend.cadastro.cliente.ClienteEntity;
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity(name = "usuario")
 public class UsuarioEntity {

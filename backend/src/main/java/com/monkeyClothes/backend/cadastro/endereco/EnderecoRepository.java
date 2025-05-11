@@ -1,4 +1,4 @@
-package com.monkeyClothes.backend.cliente.endereco;
+package com.monkeyClothes.backend.cadastro.endereco;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

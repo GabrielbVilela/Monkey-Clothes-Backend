@@ -1,8 +1,8 @@
-package com.monkeyClothes.backend.cliente.model;
+package com.monkeyClothes.backend.cadastro.cliente;
 
-import com.monkeyClothes.backend.cliente.contato.ContatoEntity;
-import com.monkeyClothes.backend.cliente.endereco.EnderecoEntity;
-import com.monkeyClothes.backend.cliente.usuario.UsuarioEntity;
+import com.monkeyClothes.backend.cadastro.contato.ContatoEntity;
+import com.monkeyClothes.backend.cadastro.endereco.EnderecoEntity;
+import com.monkeyClothes.backend.cadastro.usuario.UsuarioEntity;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -33,10 +33,12 @@ public class ClienteEntity {
 
     public void adicionarContato(ContatoEntity contato) {
         this.contatos.add(contato);
+        contato.setCliente(this);
     }
 
     public void adicionarEndereco(EnderecoEntity endereco) {
         this.enderecos.add(endereco);
+        endereco.setCliente(this);
     }
 
     public void adicionarUsuario(UsuarioEntity usuario) {

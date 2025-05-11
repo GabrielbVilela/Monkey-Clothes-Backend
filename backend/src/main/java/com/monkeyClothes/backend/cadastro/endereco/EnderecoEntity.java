@@ -1,6 +1,6 @@
-package com.monkeyClothes.backend.cliente.endereco;
+package com.monkeyClothes.backend.cadastro.endereco;
 
-import com.monkeyClothes.backend.cliente.model.ClienteEntity;
+import com.monkeyClothes.backend.cadastro.cliente.ClienteEntity;
 import jakarta.persistence.*;
 
 @Entity(name = "endereco")
@@ -23,5 +23,9 @@ public class EnderecoEntity {
     public EnderecoEntity(String cidade, String numero) {
         this.cidade = cidade;
         this.numero = numero;
+    }
+
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
     }
 }

@@ -1,6 +1,6 @@
-package com.monkeyClothes.backend.cliente.contato;
+package com.monkeyClothes.backend.cadastro.contato;
 
-import com.monkeyClothes.backend.cliente.model.ClienteEntity;
+import com.monkeyClothes.backend.cadastro.cliente.ClienteEntity;
 import jakarta.persistence.*;
 
 @Entity(name = "contato")
@@ -17,5 +17,9 @@ public class ContatoEntity {
 
     public ContatoEntity(String numero) {
         this.numero = numero;
+    }
+
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
     }
 }

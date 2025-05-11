@@ -1,13 +1,13 @@
-package com.monkeyClothes.backend.cliente;
+package com.monkeyClothes.backend.cadastro;
 
-import com.monkeyClothes.backend.cliente.contato.ContatoEntity;
-import com.monkeyClothes.backend.cliente.contato.ContatoRepository;
-import com.monkeyClothes.backend.cliente.endereco.EnderecoEntity;
-import com.monkeyClothes.backend.cliente.endereco.EnderecoRepository;
-import com.monkeyClothes.backend.cliente.model.ClienteEntity;
-import com.monkeyClothes.backend.cliente.model.ClienteRepository;
-import com.monkeyClothes.backend.cliente.usuario.UsuarioEntity;
-import com.monkeyClothes.backend.cliente.usuario.UsuarioRepository;
+import com.monkeyClothes.backend.cadastro.contato.ContatoEntity;
+import com.monkeyClothes.backend.cadastro.contato.ContatoRepository;
+import com.monkeyClothes.backend.cadastro.endereco.EnderecoEntity;
+import com.monkeyClothes.backend.cadastro.endereco.EnderecoRepository;
+import com.monkeyClothes.backend.cadastro.cliente.ClienteEntity;
+import com.monkeyClothes.backend.cadastro.cliente.ClienteRepository;
+import com.monkeyClothes.backend.cadastro.usuario.UsuarioEntity;
+import com.monkeyClothes.backend.cadastro.usuario.UsuarioRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,24 +32,14 @@ public class TestandoOBanco {
         var usuario1 = new UsuarioEntity("Gabriel@gmail.com", "12345");
         var usuario2 = new UsuarioEntity("Anthony@gmail.com", "54321");
 
-        usuarioRepository.save(usuario1);
-        usuarioRepository.save(usuario2);
-
         var cliente1 = new ClienteEntity("Gabriel","123456789");
         var cliente2 = new ClienteEntity("Anthony","987654321");
-
 
         var contato1 = new ContatoEntity("(87)9 9157-9087");
         var contato2 = new ContatoEntity("(87)9 9180-1531");
 
-        contatoRepository.save(contato1);
-        contatoRepository.save(contato2);
-
         var endereco1 = new EnderecoEntity("Sanharó", "490");
         var endereco2 = new EnderecoEntity("Caruaru", "2568");
-
-        enderecoRepository.save(endereco1);
-        enderecoRepository.save(endereco2);
 
         cliente1.adicionarContato(contato1);
         cliente2.adicionarContato(contato2);
@@ -58,8 +48,17 @@ public class TestandoOBanco {
         cliente1.adicionarUsuario(usuario1);
         cliente2.adicionarUsuario(usuario2);
 
+        usuarioRepository.save(usuario1);
+        usuarioRepository.save(usuario2);
+
         clienteRepository.save(cliente1);
         clienteRepository.save(cliente2);
+
+        contatoRepository.save(contato1);
+        contatoRepository.save(contato2);
+
+        enderecoRepository.save(endereco1);
+        enderecoRepository.save(endereco2);
     }
 
 }
