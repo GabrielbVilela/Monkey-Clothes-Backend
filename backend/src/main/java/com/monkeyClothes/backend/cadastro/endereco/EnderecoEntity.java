@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 
 @Entity(name = "endereco")
 public class EnderecoEntity {
+
+//  Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -18,14 +20,18 @@ public class EnderecoEntity {
     @ManyToOne
     private ClienteEntity cliente;
 
+//  2 Construtores (1 - Vazio; 2 - Com os parametros [cidade, numero])
     public EnderecoEntity() {}
+    public EnderecoEntity(String cidade, String numero, ClienteEntity cliente) { this.cidade = cidade; this.numero = numero; this.cliente = cliente; }
 
-    public EnderecoEntity(String cidade, String numero) {
-        this.cidade = cidade;
-        this.numero = numero;
-    }
+//  Getters
+    public long getId() { return id; }
+    public String getCep() { return cep; }
+    public String getLogradouro() { return logradouro; }
+    public String getNumero() { return numero; }
+    public String getComplemento() { return complemento; }
+    public String getBairro() { return bairro; }
+    public String getCidade() { return cidade; }
+    public String getEstado() { return estado; }
 
-    public void setCliente(ClienteEntity cliente) {
-        this.cliente = cliente;
-    }
 }

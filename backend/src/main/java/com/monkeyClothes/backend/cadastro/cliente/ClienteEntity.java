@@ -10,6 +10,8 @@ import java.util.List;
 
 @Entity(name = "cliente")
 public class ClienteEntity {
+
+//  Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long codigo;
@@ -24,15 +26,23 @@ public class ClienteEntity {
     @OneToOne
     private UsuarioEntity usuario;
 
-
+//  2 Construtores (1 - Vazio; 2 - Com os parametros [nome, CPF])
     public ClienteEntity() {}
     public ClienteEntity(String nome, String cpf) { this.nome = nome; this.cpf = cpf; }
 
-    public void adicionarContato(ContatoEntity contato) { this.contatos.add(contato); contato.setCliente(this);}
-    public void adicionarEndereco(EnderecoEntity endereco) { this.enderecos.add(endereco); endereco.setCliente(this);}
+//  Getters
+    public long getCodigo() { return codigo; }
+    public String getNome() { return nome; }
+    public String getCpf() { return cpf; }
+    public List<ContatoEntity> getContatos() { return contatos;}
+    public List<EnderecoEntity> getEnderecos() { return enderecos;}
+    public UsuarioEntity getUsuario() { return usuario; }
+
+//  Métodos para criar o relacionamento entre a classe cliente e as classes de seus atributos.
+    public void adicionarContato(ContatoEntity contato) { this.contatos.add(contato);}
+    public void adicionarEndereco(EnderecoEntity endereco) { this.enderecos.add(endereco);}
     public void adicionarUsuario(UsuarioEntity usuario) {
         this.usuario = usuario;
     }
-
 
 }

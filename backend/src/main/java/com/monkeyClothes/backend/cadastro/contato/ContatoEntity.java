@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 
 @Entity(name = "contato")
 public class ContatoEntity {
+
+//  Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long codigo;
@@ -13,13 +15,13 @@ public class ContatoEntity {
     @ManyToOne
     private ClienteEntity cliente;
 
+//  2 Construtores (1 - Vazio, 2 - Com os parametros [numero, cliente])
     public ContatoEntity() {}
+    public ContatoEntity(String numero, ClienteEntity cliente) { this.numero = numero; this.cliente = cliente; }
 
-    public ContatoEntity(String numero) {
-        this.numero = numero;
-    }
+//  Getters
+    public long getCodigo() { return codigo; }
+    public String getNumero() { return numero; }
+    public ClienteEntity puxarCliente() { return cliente; }
 
-    public void setCliente(ClienteEntity cliente) {
-        this.cliente = cliente;
-    }
 }
