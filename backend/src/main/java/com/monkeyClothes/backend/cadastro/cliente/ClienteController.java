@@ -1,16 +1,24 @@
 package com.monkeyClothes.backend.cadastro.cliente;
 
-import jakarta.annotation.PostConstruct;
+import com.monkeyClothes.backend.cadastro.ProcurarBanco;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/cliente")
 public class ClienteController {
+    @Autowired
+    private ClienteService service;
+
     @GetMapping
-    public String get() { return "Get de cliente"; }
+    public ClienteEntity get(@RequestBody ClienteEntity cliente) {
+        return service.getClienteNome(cliente.getNome());
+    }
 
     @PostMapping
-    public void post() {}
+    public String post(@RequestBody ClienteEntity cliente) {
+        return service.criarCliente(cliente);
+    }
 
     @PutMapping
     public void put() {}

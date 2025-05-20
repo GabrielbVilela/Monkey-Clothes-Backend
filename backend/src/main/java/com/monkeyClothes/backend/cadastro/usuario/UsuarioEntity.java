@@ -25,4 +25,7 @@ public class UsuarioEntity {
     public long getCodigo() { return codigo; }
     public String getEmail() { return email; }
     public String getSenha() { return senha; }
+
+//  Setters
+    public void setCliente(ClienteEntity cliente) { this.cliente = cliente; }
 }

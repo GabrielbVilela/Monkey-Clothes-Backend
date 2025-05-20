@@ -41,8 +41,6 @@ public class ClienteEntity {
 //  Métodos para criar o relacionamento entre a classe cliente e as classes de seus atributos.
     public void adicionarContato(ContatoEntity contato) { this.contatos.add(contato);}
     public void adicionarEndereco(EnderecoEntity endereco) { this.enderecos.add(endereco);}
-    public void adicionarUsuario(UsuarioEntity usuario) {
-        this.usuario = usuario;
-    }
+    public void adicionarUsuario(UsuarioEntity usuario) { this.usuario = usuario; usuario.setCliente(this);}
 
 }

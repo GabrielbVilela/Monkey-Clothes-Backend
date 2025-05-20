@@ -7,7 +7,7 @@ import com.monkeyClothes.backend.cadastro.cliente.ClienteEntity;
 import com.monkeyClothes.backend.pagamento.PagamentoEntity;
 import com.monkeyClothes.backend.pedido.PedidoEntity;
 
-@Entity
+@Entity(name = "compra")
 public class CompraEntity {
 
     @Id
@@ -22,11 +22,11 @@ public class CompraEntity {
     @JoinColumn(name = "cliente_id")
     private ClienteEntity cliente;
 
-    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PedidoEntity> pedidos;
-
-    @OneToOne(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
-    private PagamentoEntity pagamento;
+//    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<PedidoEntity> pedidos;
+//
+//    @OneToOne(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private PagamentoEntity pagamento;
 
     public CompraEntity() {}
 }
