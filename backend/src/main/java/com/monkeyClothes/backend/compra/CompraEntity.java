@@ -1,5 +1,6 @@
 package com.monkeyClothes.backend.compra;
 
+import com.monkeyClothes.backend.status.StatusEntity;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -15,8 +16,10 @@ public class CompraEntity {
     private Long codigo;
 
     private Double valor;
-    private String status;
     private LocalDate data;
+
+    @OneToOne
+    private StatusEntity status;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "cliente_id")
