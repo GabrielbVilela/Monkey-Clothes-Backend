@@ -6,9 +6,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StatusService {
+
+//  Repositorios
     @Autowired
     private StatusRepository repository;
 
+//  Metodo com valores iniciais
     @PostConstruct
     public void init() {
         repository.save(new StatusEntity("Aguardando pagamento"));
