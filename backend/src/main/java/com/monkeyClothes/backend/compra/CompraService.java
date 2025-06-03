@@ -5,7 +5,6 @@ import com.monkeyClothes.backend.cadastro.cliente.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -23,15 +22,19 @@ public class CompraService {
     }
 
     public CompraEntity salvarCompra(CompraEntity compra) {
-    	compra.setData(LocalDateTime.now());
         Long clienteCodigo = compra.getCliente().getCodigo();
 
         ClienteEntity cliente = clienteRepository.findById(clienteCodigo)
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado com código: " + clienteCodigo));
 
-        compra.setCliente(cliente);
+        CompraEntity novaCompra = new CompraEntity(
+            compra.getValor(),
+            LocalDateTime.now(),
+            compra.getStatus(),
+            cliente
+        );
 
-        return repository.save(compra);
+        return repository.save(novaCompra);
     }
 
     public Optional<CompraEntity> buscarPorId(Long id) {
