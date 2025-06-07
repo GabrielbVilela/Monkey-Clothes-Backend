@@ -15,7 +15,8 @@ public class CompraEntity {
     private Double valor;
     private LocalDateTime data;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "status_id")
     private StatusEntity status;
 
     @ManyToOne(optional = false)
