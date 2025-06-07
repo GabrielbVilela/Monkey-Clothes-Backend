@@ -2,7 +2,6 @@ package com.monkeyClothes.backend.compra;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -18,7 +17,7 @@ public class CompraController {
     }
 
     @PostMapping
-    public CompraEntity salvar(@RequestBody CompraEntity compra) {
-        return service.salvarCompra(compra);
+    public CompraEntity salvar(@RequestBody CompraDTO dto) {
+        return service.salvarCompra(dto);
     }
 }

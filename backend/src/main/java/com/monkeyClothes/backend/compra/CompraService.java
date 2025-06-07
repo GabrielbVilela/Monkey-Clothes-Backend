@@ -2,9 +2,11 @@ package com.monkeyClothes.backend.compra;
 
 import com.monkeyClothes.backend.cadastro.cliente.ClienteEntity;
 import com.monkeyClothes.backend.cadastro.cliente.ClienteRepository;
+import com.monkeyClothes.backend.status.StatusEntity;
+import com.monkeyClothes.backend.status.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -17,24 +19,23 @@ public class CompraService {
     @Autowired
     private ClienteRepository clienteRepository;
 
+    @Autowired
+    private StatusRepository statusRepository;
+
     public List<CompraEntity> listarCompras() {
         return repository.findAll();
     }
 
-    public CompraEntity salvarCompra(CompraEntity compra) {
-        Long clienteCodigo = compra.getCliente().getCodigo();
+    public CompraEntity salvarCompra(CompraDTO dto) {
+        ClienteEntity cliente = clienteRepository.findById(dto.getClienteId())
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado com código: " + dto.getClienteId()));
 
-        ClienteEntity cliente = clienteRepository.findById(clienteCodigo)
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado com código: " + clienteCodigo));
+        StatusEntity status = statusRepository.findById(dto.getStatusId())
+                .orElseThrow(() -> new RuntimeException("Status não encontrado com ID: " + dto.getStatusId()));
 
-        CompraEntity novaCompra = new CompraEntity(
-            compra.getValor(),
-            LocalDateTime.now(),
-            compra.getStatus(),
-            cliente
-        );
+        CompraEntity compra = new CompraEntity(dto.getValor(), status, cliente);
 
-        return repository.save(novaCompra);
+        return repository.save(compra);
     }
 
     public Optional<CompraEntity> buscarPorId(Long id) {

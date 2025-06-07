@@ -24,9 +24,9 @@ public class CompraEntity {
 
     public CompraEntity() {}
 
-    public CompraEntity(Double valor, LocalDateTime data, StatusEntity status, ClienteEntity cliente) {
+    public CompraEntity(Double valor, StatusEntity status, ClienteEntity cliente) {
         this.valor = valor;
-        this.data = data;
+        this.data = LocalDateTime.now();
         this.status = status;
         this.cliente = cliente;
     }
