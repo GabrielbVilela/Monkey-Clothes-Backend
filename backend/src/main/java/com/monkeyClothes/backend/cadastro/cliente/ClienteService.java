@@ -1,24 +1,21 @@
 package com.monkeyClothes.backend.cadastro.cliente;
 
-import com.monkeyClothes.backend.cadastro.ProcurarBanco;
+import com.monkeyClothes.backend.cadastro.usuario.UsuarioRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class ClienteService {
     @Autowired
     private ClienteRepository repository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-    public ClienteEntity getClienteNome(String nome) {
-        var cliente = repository.findFirstByNomeStartingWithIgnoreCase(nome);
-        if (cliente.isPresent()){
-            return cliente.get();
-        }
-        return new ClienteEntity();
+    public List<ClienteEntity> getCliente() {
+        return repository.findAll();
     }
 
     @PostConstruct
@@ -30,13 +27,18 @@ public class ClienteService {
         repository.save(cliente2);
     }
 
-    public String criarCliente(ClienteEntity cliente) {
-        var clienteCpf = repository.findClienteEntitiesByCpfIgnoreCase(cliente.getCpf());
-        if (clienteCpf.isPresent()){
-            return "CPF já cadastrado";
+    public ClienteEntity criarCliente(ClienteEntity cliente) {
+        var consultaCpf = repository.findClienteEntitiesByCpfIgnoreCase(cliente.getCpf());
+        if (consultaCpf.isPresent()){
+            throw new IllegalArgumentException("CPF já cadastrado");
         }
+        var consultaEmail = usuarioRepository.findUsuarioEntityByEmailIgnoreCase(cliente.getUsuario().getEmail());
+        if (consultaEmail.isPresent()){
+            throw new IllegalArgumentException("Email já cadastrado");
+        }
+        usuarioRepository.save(cliente.getUsuario());
         repository.save(cliente);
-        return "Cliente cadastrado";
+        return cliente;
 
     }
 }

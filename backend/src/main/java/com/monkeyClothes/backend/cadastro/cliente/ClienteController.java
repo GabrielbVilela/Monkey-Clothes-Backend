@@ -1,8 +1,9 @@
 package com.monkeyClothes.backend.cadastro.cliente;
 
-import com.monkeyClothes.backend.cadastro.ProcurarBanco;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/cliente")
@@ -11,12 +12,12 @@ public class ClienteController {
     private ClienteService service;
 
     @GetMapping
-    public ClienteEntity get(@RequestBody ClienteEntity cliente) {
-        return service.getClienteNome(cliente.getNome());
+    public List<ClienteEntity> get() {
+        return service.getCliente();
     }
 
     @PostMapping
-    public String post(@RequestBody ClienteEntity cliente) {
+    public ClienteEntity post(@RequestBody ClienteEntity cliente) {
         return service.criarCliente(cliente);
     }
 
