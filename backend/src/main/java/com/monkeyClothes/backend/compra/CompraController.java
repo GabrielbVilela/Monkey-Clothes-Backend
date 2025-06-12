@@ -2,7 +2,6 @@ package com.monkeyClothes.backend.compra;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -10,15 +9,15 @@ import java.util.List;
 public class CompraController {
 
     @Autowired
-    private CompraRepository repository;
+    private CompraService service;
 
     @GetMapping
     public List<CompraEntity> listar() {
-        return repository.findAll();
+        return service.listarCompras();
     }
 
     @PostMapping
-    public CompraEntity salvar(@RequestBody CompraEntity compra) {
-        return repository.save(compra);
+    public CompraEntity salvar(@RequestBody CompraDTO dto) {
+        return service.salvarCompra(dto);
     }
 }

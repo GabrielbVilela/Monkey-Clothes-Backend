@@ -2,11 +2,8 @@ package com.monkeyClothes.backend.compra;
 
 import com.monkeyClothes.backend.status.StatusEntity;
 import jakarta.persistence.*;
-import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
 import com.monkeyClothes.backend.cadastro.cliente.ClienteEntity;
-import com.monkeyClothes.backend.pagamento.PagamentoEntity;
-import com.monkeyClothes.backend.pedido.PedidoEntity;
 
 @Entity(name = "compra")
 public class CompraEntity {
@@ -16,20 +13,43 @@ public class CompraEntity {
     private Long codigo;
 
     private Double valor;
-    private LocalDate data;
+    private LocalDateTime data;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "status_id")
     private StatusEntity status;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "cliente_id")
     private ClienteEntity cliente;
 
-//    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<PedidoEntity> pedidos;
-//
-//    @OneToOne(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private PagamentoEntity pagamento;
-
     public CompraEntity() {}
+
+    public CompraEntity(Double valor, StatusEntity status, ClienteEntity cliente) {
+        this.valor = valor;
+        this.data = LocalDateTime.now();
+        this.status = status;
+        this.cliente = cliente;
+    }
+
+    //Getters
+    public Long getCodigo() {
+        return codigo;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public StatusEntity getStatus() {
+        return status;
+    }
+
+    public LocalDateTime getData() {
+        return data;
+    }
+
+    public ClienteEntity getCliente() {
+        return cliente;
+    }
 }
