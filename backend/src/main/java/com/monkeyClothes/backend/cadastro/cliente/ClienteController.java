@@ -21,8 +21,10 @@ public class ClienteController {
         return service.criarCliente(cliente);
     }
 
-    @PutMapping
-    public void put() {}
+    @PutMapping("/{codigo}")
+    public ClienteEntity put(@PathVariable long codigo, @RequestBody ClienteEntity clienteAtualizado) {
+        return service.atualizarCliente(codigo, clienteAtualizado);
+    }
 
     @DeleteMapping
     public void delete() {}

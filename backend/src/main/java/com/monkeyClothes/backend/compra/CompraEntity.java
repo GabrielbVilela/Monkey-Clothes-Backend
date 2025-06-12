@@ -52,4 +52,21 @@ public class CompraEntity {
     public ClienteEntity getCliente() {
         return cliente;
     }
+    
+    //setters para update
+    
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+
+    public void setStatus(StatusEntity status) {
+        this.status = status;
+    }
+
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
+    }
+
 }
+
+

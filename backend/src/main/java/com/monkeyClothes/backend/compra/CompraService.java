@@ -45,4 +45,21 @@ public class CompraService {
     public void deletarCompra(Long id) {
         repository.deleteById(id);
     }
+    public CompraEntity atualizarCompra(Long id, CompraDTO dto) {
+        CompraEntity compra = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Compra não encontrada com ID: " + id));
+
+        StatusEntity status = statusRepository.findById(dto.getStatusId())
+                .orElseThrow(() -> new RuntimeException("Status não encontrado com ID: " + dto.getStatusId()));
+
+        ClienteEntity cliente = clienteRepository.findById(dto.getClienteId())
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado com código: " + dto.getClienteId()));
+
+        compra.setValor(dto.getValor());
+        compra.setStatus(status);
+        compra.setCliente(cliente);
+
+        return repository.save(compra);
+    }
+
 }

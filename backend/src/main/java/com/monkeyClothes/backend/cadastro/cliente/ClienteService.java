@@ -41,4 +41,45 @@ public class ClienteService {
         return cliente;
 
     }
+    public ClienteEntity atualizarCliente(long codigo, ClienteEntity clienteAtualizado) {
+        var clienteExistenteOpt = repository.findById(codigo);
+        if (clienteExistenteOpt.isEmpty()) {
+            throw new IllegalArgumentException("Cliente com código " + codigo + " não encontrado");
+        }
+
+        var clienteExistente = clienteExistenteOpt.get();
+
+        // Verificar se CPF está sendo alterado e se já existe no banco
+        if (!clienteExistente.getCpf().equalsIgnoreCase(clienteAtualizado.getCpf())) {
+            var cpfExistente = repository.findClienteEntitiesByCpfIgnoreCase(clienteAtualizado.getCpf());
+            if (cpfExistente.isPresent()) {
+                throw new IllegalArgumentException("CPF já cadastrado");
+            }
+            clienteExistente.setCpf(clienteAtualizado.getCpf());
+        }
+
+        // Atualizar nome (e outros campos que desejar)
+        clienteExistente.setNome(clienteAtualizado.getNome());
+
+        // Atualizar usuario, se necessário
+        if (clienteAtualizado.getUsuario() != null) {
+            var novoUsuario = clienteAtualizado.getUsuario();
+            var usuarioExistente = clienteExistente.getUsuario();
+
+            if (usuarioExistente == null || !usuarioExistente.getEmail().equalsIgnoreCase(novoUsuario.getEmail())) {
+                // Verificar se email já existe
+                var emailExistente = usuarioRepository.findUsuarioEntityByEmailIgnoreCase(novoUsuario.getEmail());
+                if (emailExistente.isPresent()) {
+                    throw new IllegalArgumentException("Email já cadastrado");
+                }
+                // Salvar novo usuário
+                usuarioRepository.save(novoUsuario);
+                clienteExistente.adicionarUsuario(novoUsuario);
+            }
+            // Se quiser atualizar a senha e admin, pode implementar aqui
+        }
+
+        return repository.save(clienteExistente);
+    }
+
 }

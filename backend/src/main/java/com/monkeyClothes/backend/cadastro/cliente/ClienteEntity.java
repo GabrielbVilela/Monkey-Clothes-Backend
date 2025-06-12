@@ -43,4 +43,12 @@ public class ClienteEntity {
     public void adicionarEndereco(EnderecoEntity endereco) { this.enderecos.add(endereco);}
     public void adicionarUsuario(UsuarioEntity usuario) { this.usuario = usuario; usuario.setCliente(this);}
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
 }

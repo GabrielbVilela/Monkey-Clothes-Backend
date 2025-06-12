@@ -6,32 +6,30 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController // Define esta classe como um controller REST
-@RequestMapping("/pedidos") // Define o prefixo da URL para todos os endpoints
+@RestController
+@RequestMapping("/pedidos")
 public class PedidoController {
 
+    @Autowired
     private final PedidoService pedidoService;
 
-    @Autowired // Injeta o service no controller
+    @Autowired
     public PedidoController(PedidoService pedidoService) {
         this.pedidoService = pedidoService;
     }
 
-    // Endpoint para criar um novo pedido
     @PostMapping
     public ResponseEntity<PedidoEntity> criarPedido(@RequestBody PedidoEntity pedido) {
         PedidoEntity novoPedido = pedidoService.salvarPedido(pedido);
         return ResponseEntity.ok(novoPedido);
     }
 
-    // Endpoint para listar todos os pedidos
     @GetMapping
     public ResponseEntity<List<PedidoEntity>> listarPedidos() {
         List<PedidoEntity> pedidos = pedidoService.listarPedidos();
         return ResponseEntity.ok(pedidos);
     }
 
-    // Endpoint para buscar um pedido por ID
     @GetMapping("/{id}")
     public ResponseEntity<PedidoEntity> buscarPorId(@PathVariable Long id) {
         return pedidoService.buscarPorId(id)
@@ -39,7 +37,23 @@ public class PedidoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Endpoint para deletar um pedido por ID
+    @PutMapping("/{id}")
+    public ResponseEntity<PedidoEntity> atualizarPedido(@PathVariable Long id, @RequestBody PedidoEntity pedidoAtualizado) {
+        var pedidoExistenteOpt = pedidoService.buscarPorId(id);
+        if (pedidoExistenteOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        PedidoEntity pedidoExistente = pedidoExistenteOpt.get();
+
+        pedidoExistente.setDataPedido(pedidoAtualizado.getDataPedido());
+        pedidoExistente.setStatus(pedidoAtualizado.getStatus());
+        pedidoExistente.setCompra(pedidoAtualizado.getCompra());
+
+        PedidoEntity pedidoAtualizadoSalvo = pedidoService.salvarPedido(pedidoExistente);
+
+        return ResponseEntity.ok(pedidoAtualizadoSalvo);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarPedido(@PathVariable Long id) {
         pedidoService.deletarPorId(id);

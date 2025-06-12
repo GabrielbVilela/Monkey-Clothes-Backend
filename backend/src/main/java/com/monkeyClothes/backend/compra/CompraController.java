@@ -20,4 +20,11 @@ public class CompraController {
     public CompraEntity salvar(@RequestBody CompraDTO dto) {
         return service.salvarCompra(dto);
     }
+    
+    @PutMapping("/{id}")
+	public CompraEntity atualizar(@PathVariable Long id, @RequestBody CompraDTO dto) {
+		return service.atualizarCompra(id, dto);
+	}
+
 }
+	
